@@ -32,7 +32,8 @@ public class Member{
         }
         return member;
     }
-    //수정
+    //수정;=
+    // TODO: 2023-06-27 왜안돼 
     public void updateMember(int num, String name) {
         MemberInfo member = members.get(name);
         Scanner scanner = new Scanner(System.in);
