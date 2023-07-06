@@ -51,12 +51,13 @@ class MemberInfo {
         return userCase;
     }
 
-    public String toMemberString() {
-        String userCasename;
-        if(userCase == 1){
+    public String toMemberString(int userCase) {
+        String userCasename = "";
+        if (userCase == 1) {
             userCasename = "관리자";
-        } else
+        } else {
             userCasename = "회원";
-        return "ID: " + name + ", PW: " + password +", 전화번호: " + phoneNum + ", 주소: " + address + ", 유형: " + userCasename;
+        }
+        return "ID: " + name + ", PW: " + password + ", 전화번호: " + phoneNum + ", 주소: " + address + ", 유형: " + userCasename;
     }
 }

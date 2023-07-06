@@ -59,7 +59,7 @@ public class Product {
         //수정 부분
         products = loadProductFile();
         int m;
-        System.out.print("1. 전체 상품 조회 | 2. 상품명으로 조회 | 3. 카테고리로 조회 : ");
+        System.out.print("1. 전체 상품 조회 | 2. 상품명으로 조회 | 3. 카테고리로 조회 | 0.종료: ");
         m = scanner.nextInt();
         scanner.nextLine();
         try{
@@ -92,6 +92,8 @@ public class Product {
                         }
                     }
                     break;
+                case 0:
+                    break;
                 default:
                     System.out.println("올바른 메뉴를 선택하여 주세요.");
                     break;
@@ -114,7 +116,7 @@ public class Product {
             try {
                 int num = -1;
                 while(num != 0) {
-                    System.out.println("수정할 정보를 선택해 주세요: 1. 카테고리 2. 상품명 3. 가격 4. 수량 \n 수정 종료를 원할 시 0을 눌러주세요.");
+                    System.out.print("수정할 정보를 선택해 주세요: 1. 카테고리 2. 상품명 3. 가격 4. 수량 \n 수정 종료를 원할 시 0을 눌러주세요.");
                     num = scanner.nextInt();
                     scanner.nextLine();
                     switch (num) {
@@ -154,18 +156,18 @@ public class Product {
         while(true){
             try{
                 System.out.println("====상품 삭제==== \n 삭제 종료를 원할 시 종료 를 입력해주세요.");
-                System.out.println("삭제하고 싶은 상품명을 입력해 주세요.: ");
+                System.out.print("삭제하고 싶은 상품명을 입력해 주세요.: ");
                 String del_prod = scanner.nextLine();
                 if(products.containsKey(del_prod) && !del_prod.equals("종료")) {
                     ProductInfo del_product = products.get(del_prod);
                     System.out.println("삭제할 상품 정보: " + del_product.toProdString());
-                    System.out.println("정말 삭제하시겠습니까?(Y/N): ");
+                    System.out.print("정말 삭제하시겠습니까?(Y/N): ");
                     String yn = scanner.nextLine();
                     yn = yn.toUpperCase();
                     if (yn.equals("Y")) {
                         products.remove(del_prod);
                         System.out.println("삭제하였습니다.");
-                        System.out.println("계속 삭제하시겠습니까?(Y/N): ");
+                        System.out.print("계속 삭제하시겠습니까?(Y/N): ");
                         String t = scanner.nextLine();
                         t = t.toUpperCase();
                         if (t.equals("N")) {
@@ -174,7 +176,7 @@ public class Product {
                     }
                 }
                 else if (del_prod.equals("종료")){
-                    System.out.println("정말 종료하시겠습니까?(Y/N): ");
+                    System.out.print("정말 종료하시겠습니까?(Y/N): ");
                     String t = scanner.nextLine();
                     if (t.equals("Y")) {
                         break;
@@ -199,7 +201,7 @@ public class Product {
         if(!p_file.exists()){
             try{
                 if(p_file.createNewFile()){
-                    System.out.println("파일이 새로 생성되었습니다.");
+                    System.out.println("");
                 }
                 else{
                     System.out.println("파일 생성에 실패했습니다.");
@@ -237,7 +239,7 @@ public class Product {
         if(!p_file.exists()){
             try{
                 if(p_file.createNewFile()){
-                    System.out.println("파일이 새로 생성되었습니다.");
+                    System.out.println("");
                 }
                 else{
                     System.out.println("파일 생성에 실패했습니다.");

@@ -22,49 +22,61 @@ class OrderInfo {
     }
 
     public String getOrderName() {
+
         return orderName;
     }
 
     public void setOrderName(String orderName) {
+
         this.orderName = orderName;
     }
     public String getOrderManageId() {
+
         return orderManageId;
     }
 
     public void setOrderManageId(String orderManageId) {
+
         this.orderManageId = orderManageId;
     }
 
     public String getOrderProduct() {
+
         return orderProduct;
     }
 
     public void setOrderProduct(String orderProduct) {
+
         this.orderProduct = orderProduct;
     }
 
     public int getOrderQuantity() {
+
         return orderQuantity;
     }
 
     public void setOrderQuantity(int orderQuantity) {
+
         this.orderQuantity = orderQuantity;
     }
 
     public int getOrderPrice() {
+
         return orderPrice;
     }
 
     public void setOrderPrice(int orderPrice) {
+
         this.orderPrice = orderPrice;
     }
 
     public int getOrderNum(){
+
         return this.orderNum;
     }
 
     public void setOrderNum(int orderNum){
+
         this.orderNum = orderNum;
     }
     public String getOrderCatetory(){

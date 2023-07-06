@@ -276,7 +276,7 @@ public class Display {
         int p_choice = -1;
         while(p_choice != 0 ){
             main.AutoClearConsole();
-            System.out.println("----물품관리 시스템----");
+            System.out.println("----상품관리 시스템----");
             System.out.println("1. 상품 등록");
             System.out.println("2. 상품 조회");
             System.out.println("3. 상품 정보 수정");
@@ -340,7 +340,7 @@ public class Display {
                 scanner.nextLine();
                 switch (b_choice) {
                     case 1:
-                        System.out.println("1. 수량 변경 | 2. 주문 삭제: ");
+                        System.out.println("1. 수량 변경 | 2. 주문 삭제 | 0. 종료: ");
                         try{
                             int num = scanner.nextInt();
                             scanner.nextLine();
@@ -354,11 +354,11 @@ public class Display {
                                     break;
                                 case 2:
                                     System.out.print("삭제할 주문의 상품명을 적어주세요: ");
-                                    String delProduct = scanner.nextLine();
+                                    String delProduct = scanner.nextLine().trim();
                                     order.updateOrder(delProduct);
                                     break;
-                                case 3:
-                                    order.readOrder();
+                                case 0:
+                                    break;
                                 default:
                                     System.out.println("1 또는 2를 입력하여 주세요.");
                             }
@@ -374,7 +374,7 @@ public class Display {
                         main.EnterClearConsole();
                         break;
                     case 3:
-                        basketToPay.cusReadPayment(logininfo.getLoginName());
+                        order.readOrder();
                         main.EnterClearConsole();
                     case 0:
                         System.out.println("장바구니를 빠져나가겠습니다.");
@@ -408,7 +408,7 @@ public class Display {
                 scanner.nextLine();
                 switch (choice) {
                     case 1:
-                        System.out.println("주문 조회(1. 전체 주문 조회 | 2. 회원 주문 조회): ");
+                        System.out.print("주문 조회(1. 전체 주문 조회 | 2. 회원 주문 조회): ");
                         int r = scanner.nextInt();
                         scanner.nextLine();
                         switch (r) {
@@ -424,7 +424,9 @@ public class Display {
                         System.out.println("주문 관리 시스템이 종료되었습니다. ");
                         break;
                     case 2:
-                        Display.productDisplay();
+                        System.out.print("배송지를 수정할 회원의 ID를 입력해 주세요.: ");
+                        String newAddressId = scanner.nextLine();
+                        payment.updateAddress(scanner,newAddressId);
                         break;
                     case 3:
                         payment.deletePay(scanner);

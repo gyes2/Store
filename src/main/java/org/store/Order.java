@@ -18,13 +18,14 @@ public class Order {
 
         //<상품명, 상품정보>
         Map<String, ProductInfo> orderProducts = product.loadProductFile();
-        System.out.println("====== 상품 ======");
-        for(Map.Entry<String, ProductInfo> entrySet : orderProducts.entrySet()){
-            System.out.println(entrySet.getValue().toProdString());
-        }
+
         try {
             int shop = -1;
             while (shop != 0) {
+                System.out.println("====== 상품 ======");
+                for(Map.Entry<String, ProductInfo> entrySet : orderProducts.entrySet()){
+                    System.out.println(entrySet.getValue().toProdString());
+                }
                 System.out.print("1. 주문(장바구니 담기) | 2. 결제 | 0. 종료: ");
                 shop = scanner.nextInt();
                 scanner.nextLine();
@@ -46,7 +47,6 @@ public class Order {
                             String orderManageId = productInfo.getManageID();
                             String orderCategory = productInfo.getCategory();
                             OrderInfo orderInfo = new OrderInfo(orderName, orderManageId, orderProduct, orderQuantity, orderPrice, orderNum,orderCategory);
-                            //orderList.add(orderInfo);
                             orders.put(orderNum, orderInfo);
                             orderNum++;
                             saveOrderFile(orders, "basket.csv");
@@ -126,9 +126,9 @@ public class Order {
         String folder_path = "C:\\data\\" + loginInfo.getLoginName();
         File folder = new File(folder_path);
         if(!folder.exists()) {
-            System.out.println("사용자 이름 없어서 폴더 생성 중");
+            System.out.println("");
             if (folder.mkdirs()) {
-                System.out.println("사용자 이름 폴더가 새로 생성되었습니다.");
+                System.out.println("");
             } else {
                 System.out.println("사용자 이름 폴더 생성에 실패했습니다.");
             }
@@ -137,10 +137,9 @@ public class Order {
 
         //파일 없으면 새로 생성해주기
         if(!o_file.exists()){
-            System.out.println("사용자 장바구니 파일없어서 생성 중");
             try{
                 if(o_file.createNewFile()){
-                    System.out.println("사용자 장바구니 파일이 새로 생성되었습니다.");
+                    System.out.println("");
                 }
                 else{
                     System.out.println("사용자 장바구니파일 생성에 실패했습니다.");
@@ -183,7 +182,7 @@ public class Order {
         File s_folder = new File(s_path);
         if(!s_folder.exists()){
             if(s_folder.mkdirs()){
-                System.out.println("Order 파일을 생성하였습니다.");
+                System.out.println("");
             }
             else {
                 System.out.println("Order 파일 생성 실패");
@@ -194,7 +193,7 @@ public class Order {
         if(!s_ofile.exists()){
             try{
                 if(s_ofile.createNewFile()){
-                    System.out.println("Order 파일을 새로 생성하였습니다.");
+                    System.out.println("");
                 }
                 else{
                     System.out.println("Order 파일을 생성하는데 실패하였습니다.");

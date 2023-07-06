@@ -144,7 +144,6 @@ public class Payment {
             System.out.println(entry.getValue().toPayString());
         }
         for (PaymentInfo entry : pays.values()) {
-            System.out.println("첫번째 for문");
             if (entry.getPayName().equals(loginInfo.getLoginName())) {
                 try {
                     ProductInfo after = payAfterProduct.get(entry.getPayProduct());
@@ -156,7 +155,6 @@ public class Payment {
                 }
             }
             afterProd.saveProductFile(payAfterProduct);
-            System.out.println("물품 파일 업데이트 완료.");
         }
     }
     //회원이 결제한 내역 조회
@@ -174,7 +172,19 @@ public class Payment {
         Payment manageReadPay = new Payment();
         pays = manageReadPay.loadPaymentFile(payDate);
         for (PaymentInfo payInfo : pays.values()) {
-            payInfo.toPayString();
+            System.out.println(payInfo.toPayString());
+        }
+    }
+    public void updateAddress(Scanner scanner, String name){
+        Payment payment = new Payment();
+        pays = payment.loadPaymentFile(payDate);
+        System.out.print("변경할 주소를 입력하여 주세요: ");
+        String newAddress = scanner.nextLine();
+        for(Map.Entry<Integer,PaymentInfo> entry : pays.entrySet()){
+            if(entry.getValue().getPayName().equals(name)){
+                entry.getValue().setPayAddress(newAddress);
+                System.out.println(entry.getValue().getPayAddress());
+            }
         }
     }
     public Map<Integer, PaymentInfo> loadPaymentFile (String date){
@@ -273,9 +283,8 @@ public class Payment {
         String folder_path = "C:\\data\\" + loginInfo.getLoginName();
         File folder = new File(folder_path);
         if (!folder.exists()) {
-            System.out.println("delete: basket 폴더 없어서 생성 중");
             if (folder.mkdirs()) {
-                System.out.println("basket폴더가 새로 생성되었습니다.");
+                System.out.println("");
             } else {
                 System.out.println("basket폴더 생성에 실패했습니다.");
             }
@@ -285,10 +294,9 @@ public class Payment {
 
         //파일 없으면 새로 생성해주기
         if (!o_file.exists()) {
-            System.out.println("basket 파일없어서 생성 중");
             try {
                 if (o_file.createNewFile()) {
-                    System.out.println("basket파일이 새로 생성되었습니다.");
+                    System.out.println("");
                 } else {
                     System.out.println("basket파일 생성에 실패했습니다.");
                 }

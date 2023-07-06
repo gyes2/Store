@@ -12,6 +12,7 @@ public class Member {
     static Map<String, MemberInfo> members;
 
     public Member() {
+
         members = new HashMap<>();
     }
 
@@ -29,9 +30,8 @@ public class Member {
         Member rMember = new Member();
         members = rMember.loadMembersFromFile();
         MemberInfo member = members.get(name);
-
         if (member != null && (member.getPassword().equals(password))) {
-            System.out.println(member.toMemberString());
+            System.out.println(member.toMemberString(member.getUserCase()));
         } else {
             System.out.println("해당 회원을 찾을 수 없습니다.");
         }
@@ -125,7 +125,7 @@ public class Member {
         if(!file.exists()){
             try{
                 if(file.createNewFile()){
-                    System.out.println("Member 파일을 생성하였습니다.");
+                    System.out.println("");
                 }
                 else {
                     System.out.println("Member 파일 생성 실패");
@@ -158,7 +158,7 @@ public class Member {
         if(!file.exists()){
             try{
                 if(file.createNewFile()){
-                    System.out.println("Member 파일을 생성하였습니다.");
+                    System.out.println("");
                 }
                 else {
                     System.out.println("Member 파일 생성 실패");
@@ -200,7 +200,7 @@ public class Member {
     public void Search(Scanner scanner){
         Member searchCase = new Member();
         members = searchCase.loadMembersFromFile();
-        System.out.print("1. 전체 조회, 2. 회원조회 : ");
+        System.out.print("1. 전체 조회 | 2. 회원조회 : ");
         int searchNum = Integer.parseInt(scanner.nextLine());
         if (searchNum == 2){
             System.out.print("조회할 회원 ID: ");
@@ -216,7 +216,7 @@ public class Member {
         }
         else{
             for (Map.Entry<String, MemberInfo> entrySet : members.entrySet()){
-                System.out.println(entrySet.getValue().toMemberString());
+                System.out.println(entrySet.getValue().toMemberString(entrySet.getValue().getUserCase()));
 
             }
         }
@@ -233,11 +233,10 @@ public class Member {
 
         if (members.containsKey(beforeName)) {
             MemberInfo Mi = members.get(beforeName);
-            System.out.println(Mi.toMemberString());
-            System.out.print("수정할 정보를 선택해 주세요: 1. ID 2. 비밀번호 3. 전화번호 4. 주소 0.종료 : " );
+            System.out.println(Mi.toMemberString(Mi.getUserCase()));
+            System.out.print("수정할 정보를 선택해 주세요: 1. ID | 2. 비밀번호 | 3. 전화번호 | 4. 주소 | 0.종료 : " );
             int num = scanner.nextInt();
             updateCase.updateMember(num, beforeName);
-
         }
         else {
             System.out.println("해당 ID가 존재하지 않습니다.");
