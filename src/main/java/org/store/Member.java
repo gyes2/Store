@@ -110,11 +110,13 @@ public class Member {
 
     //삭제
     public void deleteMember(String name) {
+        Member m = new Member();
+        members = m.loadMembersFromFile();
         MemberInfo member = members.get(name);
         if (member != null) {
             members.remove(name);
+            m.saveMembersToFile(); // 회원 정보를 파일에 저장
             System.out.println("탈퇴되었습니다.");
-            saveMembersToFile(); // 회원 정보를 파일에 저장
         } else {
             System.out.println("해당 회원을 찾을 수 없습니다.");
         }
@@ -189,7 +191,7 @@ public class Member {
             System.out.println("현재 회원 목록 파일이 비어있습니다.");
         }
         System.out.print("삭제할 회원 ID: ");
-        String delName = scanner.nextLine();
+        String delName = scanner.nextLine().trim();
         if (members.containsKey(delName)) {
             deleteCase .deleteMember(delName);
         }

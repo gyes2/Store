@@ -17,11 +17,11 @@ public class Order {
         Payment payment = new Payment();
 
         //<상품명, 상품정보>
-        Map<String, ProductInfo> orderProducts = product.loadProductFile();
 
         try {
             int shop = -1;
             while (shop != 0) {
+                Map<String, ProductInfo> orderProducts = product.loadProductFile();
                 System.out.println("====== 상품 ======");
                 for(Map.Entry<String, ProductInfo> entrySet : orderProducts.entrySet()){
                     System.out.println(entrySet.getValue().toProdString());
@@ -94,7 +94,6 @@ public class Order {
             if(oList.getOrderProduct().equals(product)){
                 oList.setOrderQuantity(quantity);
                 System.out.println("수량이 변경되었습니다.");
-                break;
             }
         }
         //수량 변경 저장

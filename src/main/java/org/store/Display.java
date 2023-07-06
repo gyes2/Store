@@ -205,6 +205,7 @@ public class Display {
                     case 4:
                         System.out.println("4. 회원 탈퇴");
                         myMember.deleteMember(logininfo.getLoginName());
+                        mainDisplay(scanner);
                         main.EnterClearConsole();
                         break;
                     case 0:
@@ -348,8 +349,8 @@ public class Display {
                                 case 1:
                                     System.out.print("변경하실 상품명과 수량을 적어주세요: ");
                                     String[] update = scanner.nextLine().split(",");
-                                    String updateProduct = update[0];
-                                    int updateQuantity = Integer.parseInt(update[1]);
+                                    String updateProduct = update[0].trim();
+                                    int updateQuantity = Integer.parseInt(update[1].trim());
                                     order.updateOrder(updateProduct,updateQuantity);
                                     break;
                                 case 2:
@@ -396,7 +397,7 @@ public class Display {
         Payment payment = new Payment();
         int choice = -1;
         while (choice != 0) {
-            main.AutoClearConsole();
+            main.EnterClearConsole();
             System.out.println("====== 주문 관리 페이지 입니다. ======");
             System.out.println("1. 주문 조회");
             System.out.println("2. 배송지 수정");
@@ -420,6 +421,10 @@ public class Display {
                                 System.out.print("조회할 회원 ID를 입력하여주세요: ");
                                 String pay_name = scanner.nextLine();
                                 payment.cusReadPayment(pay_name);
+                                break;
+                            default:
+                                System.out.println("1 또는 2를 입력하여 주세요.");
+                                break;
                         }
                         System.out.println("주문 관리 시스템이 종료되었습니다. ");
                         break;

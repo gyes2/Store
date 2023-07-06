@@ -108,6 +108,7 @@ public class Payment {
                 System.out.println("===== 총 가격: " + totalPrice + " 원 ======");
                 payment.savePaymentFile(pays, payDate);
                 payment.afterPayment();
+                payOrders.clear();
                 payment.deleteBasketFile();
             } else if (pay_yn.equals("N")) {
                 System.out.println("이전 화면으로 돌아갑니다.");
@@ -121,16 +122,16 @@ public class Payment {
     }
 
     public void deletePay(Scanner scanner) {
-
+        Payment delPay = new Payment();
         System.out.print("주문을 삭제할 회원의 ID를 입력하세요: ");
-        String delName = scanner.nextLine();
+        String delName = scanner.nextLine().trim();
         pays = loadPaymentFile(payDate);
-        for (PaymentInfo entry : pays.values()) {
-            if (entry.getPayName().equals(delName)) {
-                pays.remove(entry.getPayNum());
-                break;
+        for (Map.Entry<Integer,PaymentInfo> entry : pays.entrySet()) {
+            if(entry.getValue().getPayName().equals(delName)){
+                pays.remove(entry.getKey());
             }
         }
+        delPay.savePaymentFile(pays,payDate);
         System.out.println("삭제가 완료되었습니다.");
     }
 
@@ -186,6 +187,7 @@ public class Payment {
                 System.out.println(entry.getValue().getPayAddress());
             }
         }
+        payment.savePaymentFile(pays,payDate);
     }
     public Map<Integer, PaymentInfo> loadPaymentFile (String date){
 
@@ -266,7 +268,7 @@ public class Payment {
                 throw new RuntimeException(e);
             }
         }
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(payFilePath, true))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(payFilePath))) {
             for (PaymentInfo payment : pay.values()) {
                 String w_line = payment.getPayName() + "," + payment.getPayProduct() + "," + payment.getPayQuantity() + "," + payment.getPayPrice() + ","
                         + payment.getPayProductManageId() + "," + payment.getPayPrice() + "," +
@@ -289,8 +291,7 @@ public class Payment {
                 System.out.println("basket폴더 생성에 실패했습니다.");
             }
         }
-        String filename = folder_path + "basket.csv";
-        File o_file = new File(folder, filename);
+        File o_file = new File(folder, "basket.csv");
 
         //파일 없으면 새로 생성해주기
         if (!o_file.exists()) {
@@ -304,6 +305,7 @@ public class Payment {
                 System.out.println("basket파일이 생성되지 않았습니다.");
             }
         }
+        String filename = folder_path + "basket.csv";
         Path name = Paths.get(filename);
         try {
             Files.deleteIfExists(name);

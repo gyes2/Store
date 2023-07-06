@@ -116,23 +116,28 @@ public class Product {
             try {
                 int num = -1;
                 while(num != 0) {
-                    System.out.print("수정할 정보를 선택해 주세요: 1. 카테고리 2. 상품명 3. 가격 4. 수량 \n 수정 종료를 원할 시 0을 눌러주세요.");
+                    System.out.println("수정할 정보를 선택해 주세요: 1. 카테고리 | 2. 상품명 | 3. 가격 | 4. 수량 ");
+                    System.out.println("수정 종료를 원할 시 0을 눌러주세요.");
                     num = scanner.nextInt();
                     scanner.nextLine();
                     switch (num) {
                         case 1:
+                            System.out.print("수정할 카테고리 : ");
                             String u_category = scanner.nextLine();
                             productInfo.setCategory(u_category);
                             break;
                         case 2:
+                            System.out.print("수정할 상품명 : ");
                             String u_productName = scanner.nextLine();
                             productInfo.setProductName(u_productName);
                             break;
                         case 3:
+                            System.out.print("수정할 가격 : ");
                             int u_price = Integer.parseInt(scanner.nextLine().trim());
                             productInfo.setPrice(u_price);
                             break;
                         case 4:
+                            System.out.print("수정할 수량 : ");
                             int u_quantity = Integer.parseInt(scanner.nextLine().trim());
                             productInfo.setQuantity(u_quantity);
                             break;
@@ -143,6 +148,7 @@ public class Product {
                             System.out.println("매뉴에 있는 번호를 눌러주세요.");
                             break;
                     }
+                    saveProductFile(products);
                 }
             }catch(InputMismatchException e){
                 System.out.println("올바른 입력을 해주세요.");
@@ -153,6 +159,8 @@ public class Product {
         }
     }
     public void deleteProduct(Scanner scanner){
+        Product product = new Product();
+        products = product.loadProductFile();
         while(true){
             try{
                 System.out.println("====상품 삭제==== \n 삭제 종료를 원할 시 종료 를 입력해주세요.");
@@ -171,28 +179,29 @@ public class Product {
                         String t = scanner.nextLine();
                         t = t.toUpperCase();
                         if (t.equals("N")) {
+                            product.saveProductFile(products);
                             break;
                         }
+                        product.saveProductFile(products);
                     }
                 }
                 else if (del_prod.equals("종료")){
                     System.out.print("정말 종료하시겠습니까?(Y/N): ");
                     String t = scanner.nextLine();
                     if (t.equals("Y")) {
+                        product.saveProductFile(products);
                         break;
                     }
                 }
                 else {
                     System.out.println("삭제 가능한 상품이 없습니다.");
                 }
-
             }
             catch (InputMismatchException e){
                 System.out.println("입력이 잘못되었습니다.");
                 break;
             }
         }
-
     }
     public Map<String,ProductInfo> loadProductFile(){
         File p_file = new File("C:\\data\\product.csv");
